@@ -1,1 +1,1 @@
-const FavoriteList ({list=[]})
+// const FavoriteList ({list=[]})
