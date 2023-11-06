@@ -1,0 +1,1 @@
+const FavoriteList ({list=[]})
