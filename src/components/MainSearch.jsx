@@ -9,7 +9,7 @@ const MainSearch = () => {
   const dispatch = useDispatch();
   const [query, setQuery] = useState("");
   const jobsFromRedux = useSelector((state) => {
-    return state.content;
+    return state.jobs.content;
   });
   console.log(jobsFromRedux);
   // const [jobs, setJobs] = useState([]);
