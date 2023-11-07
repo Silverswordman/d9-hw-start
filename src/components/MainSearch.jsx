@@ -1,31 +1,27 @@
 import { useState } from "react";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import Job from "./Job";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { GetJobAction } from "../redux/actions";
 
 const MainSearch = () => {
+  const dispatch = useDispatch();
   const [query, setQuery] = useState("");
-  const [jobs, setJobs] = useState([]);
+  const jobsFromRedux = useSelector((state) => state.jobs) || [];
+  console.log(jobsFromRedux);
+  // const [jobs, setJobs] = useState([]);
 
-  const baseEndpoint = "https://strive-benchmark.herokuapp.com/api/jobs?search=";
+  const baseEndpoint =
+    "https://strive-benchmark.herokuapp.com/api/jobs?search=";
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setQuery(e.target.value);
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    try {
-      const response = await fetch(baseEndpoint + query + "&limit=20");
-      if (response.ok) {
-        const { data } = await response.json();
-        setJobs(data);
-      } else {
-        alert("Error fetching results");
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    dispatch(GetJobAction(baseEndpoint, query));
   };
 
   return (
@@ -36,11 +32,17 @@ const MainSearch = () => {
         </Col>
         <Col xs={10} className="mx-auto">
           <Form onSubmit={handleSubmit}>
-            <Form.Control type="search" value={query} onChange={handleChange} placeholder="type and press Enter" />
+            <Form.Control
+              type="search"
+              value={query}
+              onChange={handleChange}
+              placeholder="type and press Enter"
+            />
           </Form>
+          <Link to="/favorites">Favs</Link>
         </Col>
         <Col xs={10} className="mx-auto mb-5">
-          {jobs.map(jobData => (
+          {jobsFromRedux.map((jobData) => (
             <Job key={jobData._id} data={jobData} />
           ))}
         </Col>
