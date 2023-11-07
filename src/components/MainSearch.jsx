@@ -8,12 +8,11 @@ import { GetJobAction } from "../redux/actions";
 const MainSearch = () => {
   const dispatch = useDispatch();
   const [query, setQuery] = useState("");
-  const jobsFromRedux = useSelector((state) => state.jobs) || [];
+  const jobsFromRedux = useSelector((state) => {
+    return state.content;
+  });
   console.log(jobsFromRedux);
   // const [jobs, setJobs] = useState([]);
-
-  const baseEndpoint =
-    "https://strive-benchmark.herokuapp.com/api/jobs?search=";
 
   const handleChange = (e) => {
     setQuery(e.target.value);
@@ -21,7 +20,7 @@ const MainSearch = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(GetJobAction(baseEndpoint, query));
+    dispatch(GetJobAction(query));
   };
 
   return (

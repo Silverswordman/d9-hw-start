@@ -12,6 +12,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import jobReducer from "../reducers/jobs";
 import favReducer from "../reducers/fav";
+
 // import mainReducer from "../reducers";
 const CombinedReducer = combineReducers({ jobs: jobReducer, fav: favReducer });
 

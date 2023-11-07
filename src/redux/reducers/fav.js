@@ -31,18 +31,12 @@ const favReducer =
       case FAV:
         return {
           ...state,
-          favorite: {
-            ...state.favorite,
-            list: [...state.favorite.list, action.payload],
-          },
+          list: [...state.list, action.payload],
         };
       case REMOVE:
         return {
           ...state,
-          favorite: {
-            ...state.favorite,
-            list: state.favorite.list.filter((job, i) => i !== action.payload),
-          },
+          list: [...state.list.filter((job, i) => i !== action.payload)],
         };
       default:
         // se non finiamo in nessuno dei casi switch cosa si fa? si torna allo stato iniziale con il default
